@@ -2,3 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Add this in your styles.css or relevant CSS file */
+.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50; /* Adjust as needed */
+}
+
+.bg-black {
+    background-color: rgba(0, 0, 0, 0.75); /* Semi-transparent black */
+}

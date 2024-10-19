@@ -1,9 +1,10 @@
-import Image from "next/image";
+import MasonryGrid from "@/components/masonrygrid";
 
 export default function Home() {
   return (
-	<>
-		<h1>YEET</h1>
-	</>
+    <>
+      <h1>YEET</h1>
+	  <MasonryGrid />
+    </>
   );
-};
+}
