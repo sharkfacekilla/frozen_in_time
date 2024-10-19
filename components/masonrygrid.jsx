@@ -20,17 +20,27 @@ const MasonryGrid = () => {
         setSelectedImage(null);
     };
 
+    const shuffleArray = (array) => {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+        }
+        return array;
+    };
+    
     useEffect(() => {
         const fetchImages = async () => {
             const res = await fetch('/api/getImages');
             const data = await res.json();
-            setImages(data);
+            const shuffledImages = shuffleArray(data); // Shuffle the images
+            setImages(shuffledImages);
             setLoading(false);
             console.log(data);
         };
 
         fetchImages();
     }, []);
+
 
     if (loading) {
         return <p>Loading images...</p>;
