@@ -9,10 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/base": "^5.0.0-beta.59",
+    "@mui/material": "^6.1.4",
+    "@uploadthing/react": "^7.0.3",
+    "aws-sdk": "^2.1691.0",
     "next": "14.2.15",
     "react": "^18",
     "react-dom": "^18",
-    "react-masonry-css": "^1.0.16"
+    "react-masonry-css": "^1.0.16",
+    "uploadthing": "^7.1.0"
   },
   "devDependencies": {
     "@types/node": "^20",

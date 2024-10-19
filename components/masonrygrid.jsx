@@ -1,47 +1,71 @@
-"use client"
-import { useState } from 'react';
-import Modal from './Modal';
+"use client";
+import { useState, useEffect } from 'react';
+import Modal from '@mui/material/Modal';
+import { Button } from '@mui/base/Button';
 
-let photos = [
-    { id: 1, alt: 'erbology', src: 'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg' },
-    { id: 2, alt: 'shoes', src: 'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg' },
-    { id: 3, alt: 'small bag', src: 'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg' },
-    { id: 4, alt: 'plants', src: 'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg' },
-    { id: 5, alt: 'watch', src: 'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg' },
-    { id: 6, alt: 'shoe', src: 'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg' },
-    { id: 7, alt: 'cream', src: 'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg' },
-    { id: 8, alt: 'small bag', src: 'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg' },
-    { id: 9, alt: 'lamp', src: 'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg' },
-    { id: 10, alt: 'toiletbag', src: 'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg' },
-    { id: 11, alt: 'playstation', src: 'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-10.jpg' },
-    { id: 12, alt: 'bag', src: 'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg' }
-];
 
 const MasonryGrid = () => {
     const [selectedImage, setSelectedImage] = useState(null);
+    const [images, setImages] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [open, setOpen] = useState(false);
 
-    const handleImageClick = (image) => {
+    const handleOpen = (image) => {
         setSelectedImage(image);
+        setOpen(true);
     };
 
-    const handleCloseModal = () => {
+    const handleClose = () => {
+        setOpen(false);
         setSelectedImage(null);
     };
+
+    useEffect(() => {
+        const fetchImages = async () => {
+            const res = await fetch('/api/getImages');
+            const data = await res.json();
+            setImages(data);
+            setLoading(false);
+            console.log(data);
+        };
+
+        fetchImages();
+    }, []);
+
+    if (loading) {
+        return <p>Loading images...</p>;
+    }
 
     return (
         <>
             <div className="column-1 sm:columns-2 lg:columns-3 md:py-20 gap-12 p-12">
-                {photos.map((img) => (
+                {images.map((img) => (
                     <div
-                        key={img.id}
+                        key={img.key}
                         className="mb-4 break-inside-avoid cursor-pointer transform transition-transform duration-300 hover:scale-105 hover:bg-black/20 p-1 rounded-lg"
-                        onClick={() => handleImageClick(img)}
+                        onClick={() => handleOpen(img)}
                     >
-                        <img src={img.src} alt={img.alt} className="w-full h-auto rounded-lg" />
+                        <img src={img.url} alt={img.alt} className="w-full h-auto rounded-lg" />
                     </div>
                 ))}
             </div>
-            {selectedImage && <Modal image={selectedImage} onClose={handleCloseModal} />}
+
+            <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50">
+                    {selectedImage && (
+                        <div className="relative flex items-center justify-center">
+                            <Button className="absolute top-4 right-4 bg-black rounded-full px-4 py-2 text-white text-sm" onClick={handleClose}>
+                                X                            
+                            </Button>
+                            <img 
+                                src={selectedImage.url} 
+                                alt={selectedImage.alt} 
+                                className="max-h-[90vh] object-contain rounded-lg"
+                            />
+                        </div>
+                    )}
+                </div>
+            </Modal>
         </>
     );
 };
