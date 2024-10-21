@@ -1,9 +1,13 @@
 // app/api/getImages/route.js
 import s3 from "@/aws-config.js";
 
-export async function GET() {
+export async function GET(request) {
+    const { searchParams } = new URL(request.url);
+    const folder = searchParams.get('folder') || ''; // Get folder from query params or default to root
+
     const params = {
         Bucket: process.env.AWS_BUCKET_NAME,
+        Prefix: folder, // Use the folder as a prefix to limit to a specific folder in the S3 bucket
     };
 
     try {

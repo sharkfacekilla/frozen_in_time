@@ -12,7 +12,7 @@ export default function Navbar() {
     };
 
     const getLinkClass = (path) => {
-        return pathname === path
+        return pathname === path || (path === "/gallery" && pathname.startsWith("/gallery"))
             ? "block py-2 px-3 text-white bg-black rounded-full md:bg-black md:p-4" // Active link class
             : "block py-2 px-3 text-black rounded-full hover:bg-black hover:text-white md:hover:bg-black md:border-0 md:hover:text-white md:p-4"; // Default link class
     };
@@ -43,8 +43,8 @@ export default function Navbar() {
                                 </a>
                             </li>
                             <li>
-                                <a href="/about" className={getLinkClass("/about")}>
-                                    About
+                                <a href={"/gallery"} className={getLinkClass("/gallery")}>
+                                    Gallery
                                 </a>
                             </li>
                             <li>
