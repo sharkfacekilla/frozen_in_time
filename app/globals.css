@@ -94,3 +94,11 @@ html {
 body {
   -ms-overflow-style: none;  /* IE and Edge */
 }
+
+.hero {
+  background-size: cover;
+  background-position: center;
+	background-repeat: no-repeat;
+  background-image: url("/img/portland.jpg");
+  background-attachment: fixed;
+}
