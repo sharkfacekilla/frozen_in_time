@@ -102,3 +102,12 @@ body {
   background-image: url("/img/portland.jpg");
   background-attachment: fixed;
 }
+
+nav ul li {
+  position: relative;
+}
+
+nav ul ul {
+  position: absolute;
+  width: 100%;
+}
