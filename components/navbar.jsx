@@ -47,7 +47,7 @@ export default function Navbar() {
                                     Gallery
                                 </a>
                             </li>
-                            <li>
+                            {/* <li>
                                 <a href="/services" className={getLinkClass("/services")}>
                                     Services
                                 </a>
@@ -56,7 +56,7 @@ export default function Navbar() {
                                 <a href="/pricing" className={getLinkClass("/pricing")}>
                                     Pricing
                                 </a>
-                            </li>
+                            </li> */}
                             <li>
                                 <a href="/contact" className={getLinkClass("/contact")}>
                                     Contact
